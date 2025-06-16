@@ -1,10 +1,10 @@
 import { apiGenerator } from '@/api';
 import { PATH } from '@/entities/path';
 import Link from 'next/link';
-import type { MovieResponse } from '@/entities/movie';
+import type { Movie } from '@/entities/movie';
 
 export async function MovieList() {
-  const response = await apiGenerator<unknown, MovieResponse[]>({
+  const response = await apiGenerator<unknown, Movie[]>({
     path: '/movies',
     method: 'GET',
   });

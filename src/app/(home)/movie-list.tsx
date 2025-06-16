@@ -1,21 +1,9 @@
 import { apiGenerator } from '@/api';
+import { PATH } from '@/entities/path';
+import Link from 'next/link';
+import type { MovieResponse } from '@/entities/movie';
 
-type MovieResponse = {
-  adult: boolean;
-  backdrop_path: string;
-  genre_id: number[];
-  id: string;
-  original_language: 'en' | 'ko';
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-};
-
-export const MovieList = async () => {
+export async function MovieList() {
   const response = await apiGenerator<unknown, MovieResponse[]>({
     path: '/movies',
     method: 'GET',
@@ -31,10 +19,12 @@ export const MovieList = async () => {
     <div>
       {movies.map((movie) => (
         <div key={movie.id}>
-          <p>{movie.original_title}</p>
-          <p>{movie.overview}</p>
+          <Link href={PATH.MOVIE_DETAIL({ movieId: movie.id })}>
+            <p>{movie.original_title}</p>
+            <p>{movie.overview}</p>
+          </Link>
         </div>
       ))}
     </div>
   );
-};
+}

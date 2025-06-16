@@ -1,23 +1,10 @@
+import { MovieDetail } from './movie-detail';
+
 type Params = {
-  id: number;
+  id: string;
 };
 
-type SearchParams = {
-  page: number;
-};
-
-export default async function Page({
-  params,
-  searchParams,
-}: {
-  params: Promise<Params>;
-  searchParams: Promise<SearchParams>;
-}) {
+export default async function Page({ params }: { params: Promise<Params> }) {
   const { id } = await params;
-  const { page } = await searchParams;
-  return (
-    <h1>
-      Movie {id} | page {page}
-    </h1>
-  );
+  return <MovieDetail movieId={id} />;
 }

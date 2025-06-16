@@ -10,7 +10,7 @@ export const httpClient = async <TRequest, TResponse>({
   method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
   request?: TRequest;
 }) => {
-  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+  const BASE_URL = process.env.BASE_URL;
   const response = await fetch(`${BASE_URL}${path}`, {
     method,
     body: request !== undefined ? JSON.stringify(request) : undefined,

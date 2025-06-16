@@ -10,13 +10,13 @@ export const httpClient = async <TRequest, TResponse>({
   method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
   request?: TRequest;
 }) => {
-  const response = await fetch(
-    `https://nomad-movies.nomadcoders.workers.dev${path}`,
-    {
-      method,
-      body: request !== undefined ? JSON.stringify(request) : undefined,
-    }
-  );
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+  console.log(BASE_URL);
+  console.log(process.env);
+  const response = await fetch(`${BASE_URL}${path}`, {
+    method,
+    body: request !== undefined ? JSON.stringify(request) : undefined,
+  });
   const responseBody = (await response.json().catch(() => null)) as unknown;
   return { response, data: responseBody } as APIResponse<TResponse>;
 };

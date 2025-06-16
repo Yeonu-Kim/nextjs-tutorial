@@ -1,6 +1,3 @@
-'use client';
-
-import { useCallback, useEffect, useState } from 'react';
 import { apiGenerator } from '@/api';
 
 type MovieResponse = {
@@ -18,40 +15,17 @@ type MovieResponse = {
   vote_count: number;
 };
 
-export const MovieList = () => {
-  const [movies, setMovies] = useState<MovieResponse[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export const MovieList = async () => {
+  const response = await apiGenerator<unknown, MovieResponse[]>({
+    path: '/movies',
+    method: 'GET',
+  });
 
-  const getMovies = useCallback(async () => {
-    const response = await apiGenerator<unknown, MovieResponse[]>({
-      path: '/movies',
-      method: 'GET',
-    });
-    if (response.type === 'success') {
-      setMovies(response.data);
-      return;
-    }
-    setError(response.message);
-  }, []);
-
-  useEffect(() => {
-    getMovies()
-      .catch(() => {
-        setError('데이터를 불러오는 데 실패했습니다.');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [getMovies, setLoading, setError]);
-
-  if (loading === true) {
-    return <div>Loading...</div>;
+  if (response.type === 'error') {
+    return <div>{response.message}</div>;
   }
 
-  if (error !== null) {
-    return <div>{error}</div>;
-  }
+  const movies = response.data;
 
   return (
     <div>

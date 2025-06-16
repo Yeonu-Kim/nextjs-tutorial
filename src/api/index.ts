@@ -11,8 +11,6 @@ export const httpClient = async <TRequest, TResponse>({
   request?: TRequest;
 }) => {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-  console.log(BASE_URL);
-  console.log(process.env);
   const response = await fetch(`${BASE_URL}${path}`, {
     method,
     body: request !== undefined ? JSON.stringify(request) : undefined,
@@ -36,7 +34,6 @@ export const apiGenerator = <TRequest, TResponse>({
     request,
   })
     .then(({ response, data }) => {
-      console.log(response);
       if (response.ok) {
         return {
           type: 'success' as const,

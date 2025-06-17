@@ -10,7 +10,6 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const { id } = await params;
   return (
     <div>
-      <h1>Movie Detail Page</h1>
       <Suspense fallback={<h1>Loading Movie Detail...</h1>}>
         <MovieDetail movieId={id} />
       </Suspense>

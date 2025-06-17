@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navigation />
-        {children}
+        <div className="my-7.5 mx-auto max-w-7xl px-8">{children}</div>
       </body>
     </html>
   );

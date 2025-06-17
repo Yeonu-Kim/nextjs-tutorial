@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import { MovieDetail } from './movie-detail';
-import { VideoList } from './video-list';
+import { MovieDetail } from '../../../../components/common/movies/movie-detail';
+import { VideoList } from '../../../../components/common/movies/video-list';
 
 type Params = {
   id: string;

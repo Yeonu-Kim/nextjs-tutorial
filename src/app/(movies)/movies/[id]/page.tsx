@@ -1,4 +1,6 @@
+import { Suspense } from 'react';
 import { MovieDetail } from './movie-detail';
+import { VideoList } from './video-list';
 
 type Params = {
   id: string;
@@ -6,5 +8,15 @@ type Params = {
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { id } = await params;
-  return <MovieDetail movieId={id} />;
+  return (
+    <div>
+      <h1>Movie Detail Page</h1>
+      <Suspense fallback={<h1>Loading Movie Detail...</h1>}>
+        <MovieDetail movieId={id} />
+      </Suspense>
+      <Suspense fallback={<h1>Loading videos...</h1>}>
+        <VideoList movieId={id} />
+      </Suspense>
+    </div>
+  );
 }

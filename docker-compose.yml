@@ -1,0 +1,39 @@
+services:
+  app:
+    build: .
+    container_name: nextjs_app
+    environment:
+      - NODE_ENV=production
+    ports:
+      - '3000:3000'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      interval: 30s
+      retries: 3
+      start_period: 5s
+      timeout: 10s
+    networks:
+      - mynetwork
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:

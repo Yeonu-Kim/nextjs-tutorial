@@ -4,7 +4,6 @@ import { VideoList } from '@/components/movies/video-list';
 import { apiGenerator } from '@/api';
 import type { Movie } from '@/entities/movie';
 import { PATH } from '@/entities/path';
-import { Metadata } from 'next';
 
 type Params = {
   id: string;
@@ -13,8 +12,8 @@ type Params = {
 export const generateMetadata = async ({
   params,
 }: {
-  params: Params;
-}): Promise<Metadata> => {
+  params: Promise<Params>;
+}) => {
   const { id } = await params;
   const response = await apiGenerator<unknown, Movie>({
     path: PATH.MOVIE_DETAIL({ movieId: id }),

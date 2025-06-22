@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    image: yeonukim/nextjs_deploy_tutorial
+    image: yeonukim/nextjs_deploy_tutorial:latest
     container_name: nextjs_app
     environment:
       - NODE_ENV=production

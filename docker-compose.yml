@@ -1,13 +1,14 @@
 services:
   app:
     build: .
+    image: yeonukim/nextjs_deploy_tutorial
     container_name: nextjs_app
     environment:
       - NODE_ENV=production
     ports:
       - '3000:3000'
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      test: ['CMD', 'curl', '-f', 'http://nextjs_app:3000']
       interval: 30s
       retries: 3
       start_period: 5s
@@ -27,11 +28,6 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/lib/letsencrypt:/var/lib/letsencrypt
-    healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost']
-      interval: 10s
-      timeout: 5s
-      retries: 3
     networks:
       - mynetwork
 
